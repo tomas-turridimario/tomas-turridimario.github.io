@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tomas Turri Di Mario | Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root { --dark: #0d1117; --card: #161b22; --accent: #58a6ff; --text: #c9d1d9; }
+        body { background-color: var(--dark); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .hero { height: 60vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1c2128 0%, #0d1117 100%); border-bottom: 1px solid #30363d; }
+        .btn-accent { background-color: var(--accent); color: white; border-radius: 8px; font-weight: 600; }
+        .project-card { background: var(--card); border: 1px solid #30363d; border-radius: 12px; transition: 0.3s; padding: 25px; height: 100%; }
+        .project-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+        .chart-box { background: #0d1117; border-radius: 8px; padding: 15px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+    <!-- Sección de Inicio -->
+    <section class="hero text-center">
+        <div class="container">
+            <h1 class="display-3 fw-bold text-white mb-3">Tomas Turri Di Mario</h1>
+            <p class="lead mb-4">Analista de Datos | Estudiante de Ciencia de Datos e IA en ISTEA</p>
+            <div class="d-flex justify-content-center gap-3">
+                <a href="#proyectos" class="btn btn-accent px-4 py-2">Explorar Proyectos</a>
+                <a href="https://linkedin.com" class="btn btn-outline-light px-4 py-2">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección Interactiva: Proyectos -->
+    <section id="proyectos" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5 fw-bold text-white">Proyectos & Análisis</h2>
+            <div class="row g-4">
+                
+                <!-- Proyecto Formula 1 con Gráfico Real -->
+                <div class="col-lg-6">
+                    <div class="project-card">
+                        <h4 class="text-white">Análisis de Telemetría F1</h4>
+                        <p>Visualización de velocidades máximas por circuito. Procesado con Python y visualizado aquí con Chart.js.</p>
+                        <div class="chart-box">
+                            <canvas id="f1Chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyecto E-commerce -->
+                <div class="col-lg-6">
+                    <div class="project-card">
+                        <h4 class="text-white">E-commerce Data Insights</h4>
+                        <p>Dashboard de conversión para Tienda Nube. Análisis de comportamiento de usuarios y optimización de ventas.</p>
+                        <div class="chart-box">
+                            <canvas id="salesChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center py-4 border-top border-secondary mt-5 opacity-50">
+        <p>Gualeguaychú, Argentina | 2026</p>
+    </footer>
+
+    <!-- Lógica de los Gráficos Interactivos -->
+    <script>
+        // Gráfico de F1
+        const ctxF1 = document.getElementById('f1Chart').getContext('2d');
+        new Chart(ctxF1, {
+            type: 'bar',
+            data: {
+                labels: ['Monza', 'Spa', 'Silverstone', 'Mónaco'],
+                datasets: [{
+                    label: 'Velocidad Punta (km/h)',
+                    data: [355, 340, 330, 290],
+                    backgroundColor: '#58a6ff'
+                }]
+            },
+            options: { responsive: true, plugins: { legend: { display: false } } }
+        });
+
+        // Gráfico de Ventas
+        const ctxSales = document.getElementById('salesChart').getContext('2d');
+        new Chart(ctxSales, {
+            type: 'line',
+            data: {
+                labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+                datasets: [{
+                    label: 'Conversión %',
+                    data: [2.5, 3.8, 3.2, 4.5],
+                    borderColor: '#238636',
+                    tension: 0.3
+                }]
+            }
+        });
+    </script>
+</body>
+</html>
