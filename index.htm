@@ -3,98 +3,244 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tomas Turri Di Mario | Portfolio</title>
+    <title>Tomas Turridi Mario | Portfolio</title>
+    <!-- Bootstrap para estructura -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Iconos de tecnologías -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js para los gráficos -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
     <style>
-        :root { --dark: #0d1117; --card: #161b22; --accent: #58a6ff; --text: #c9d1d9; }
-        body { background-color: var(--dark); color: var(--text); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .hero { height: 60vh; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle at center, #1c2128 0%, #0d1117 100%); border-bottom: 1px solid #30363d; }
-        .btn-accent { background-color: var(--accent); color: white; border-radius: 8px; font-weight: 600; }
-        .project-card { background: var(--card); border: 1px solid #30363d; border-radius: 12px; transition: 0.3s; padding: 25px; height: 100%; }
-        .project-card:hover { border-color: var(--accent); transform: translateY(-5px); }
-        .chart-box { background: #0d1117; border-radius: 8px; padding: 15px; margin-top: 15px; }
+        :root {
+            --bg-color: #0b111e;
+            --card-bg: #111a2d;
+            --accent-blue: #38bdf8;
+            --accent-green: #2dd4bf;
+            --text-main: #f1f5f9;
+            --text-secondary: #94a3b8;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
+
+        /* Navbar estilo Premium */
+        .navbar { 
+            background: rgba(11, 17, 30, 0.9); 
+            backdrop-filter: blur(10px); 
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .nav-link { color: var(--text-main) !important; font-size: 0.9rem; margin-left: 20px; transition: 0.3s; }
+        .nav-link:hover { color: var(--accent-blue) !important; }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: radial-gradient(circle at 10% 50%, rgba(56, 189, 248, 0.08) 0%, transparent 40%);
+        }
+
+        .hero-name {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent-green), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .btn-projects {
+            background: linear-gradient(to right, var(--accent-green), var(--accent-blue));
+            border: none; color: white; padding: 14px 35px; border-radius: 8px; 
+            font-weight: bold; transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
+            text-decoration: none; display: inline-block;
+        }
+        .btn-projects:hover { transform: scale(1.05); color: white; box-shadow: 0 6px 20px rgba(56, 189, 248, 0.5); }
+
+        /* Tarjetas de Habilidades con Efectos Hover */
+        .skill-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 40px;
+            height: 100%;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s ease;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+            background: rgba(17, 26, 45, 0.8);
+        }
+
+        /* Iconos individuales */
+        .tech-box {
+            transition: transform 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            padding: 15px;
+        }
+
+        .tech-box:hover {
+            transform: scale(1.25);
+            color: var(--accent-blue);
+        }
+
+        .skill-icon { font-size: 2.8rem; margin-bottom: 8px; display: block; }
+        .skill-name { font-size: 0.75rem; color: var(--text-secondary); font-weight: 600; text-transform: uppercase; }
+        
+        .section-title { font-size: 2.5rem; font-weight: 700; margin-bottom: 50px; }
+        .section-number { color: var(--accent-green); font-family: monospace; font-size: 1.5rem; }
+
+        /* Contenedor del Gráfico */
+        .chart-wrapper {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
     </style>
 </head>
 <body>
 
-    <!-- Sección de Inicio -->
-    <section class="hero text-center">
+    <!-- Navegación -->
+    <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
-            <h1 class="display-3 fw-bold text-white mb-3">Tomas Turri Di Mario</h1>
-            <p class="lead mb-4">Analista de Datos | Estudiante de Ciencia de Datos e IA en ISTEA</p>
-            <div class="d-flex justify-content-center gap-3">
-                <a href="#proyectos" class="btn btn-accent px-4 py-2">Explorar Proyectos</a>
-                <a href="https://linkedin.com" class="btn btn-outline-light px-4 py-2">LinkedIn</a>
+            <span class="fw-bold" style="letter-spacing: 2px; color: var(--accent-blue);">TTM.DATA</span>
+            <div class="ms-auto d-flex">
+                <a class="nav-link" href="#inicio">Inicio</a>
+                <a class="nav-link" href="#habilidades">Habilidades</a>
+                <a class="nav-link" href="#proyectos">Proyectos</a>
+                <a class="nav-link border border-info rounded px-3" href="#">CV</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="inicio" class="hero">
+        <div class="container text-start">
+            <p class="mb-0 fw-bold" style="color: var(--accent-green);">Hola, soy</p>
+            <h1 class="hero-name">Tomas Turri Di Mario</h1>
+            <h2 class="display-6 fw-bold mb-4" style="color: #ccd6f6;">Data Analyst - Estudiante de Ciencia de Datos e IA - Full Stack Developer</h2>
+            <p class="col-lg-6 text-secondary mb-5 fs-5">
+                Especialista en convertir datos crudos en historias visuales. Estudiante de Ciencia de Datos e IA con experiencia técnica en desarrollo moderno.
+            </p>
+            <a href="#proyectos" class="btn btn-projects">¡Mis proyectos! →</a>
+        </div>
+    </section>
+
+    <!-- Sección Habilidades -->
+    <section id="habilidades" class="py-5">
+        <div class="container">
+            <h2 class="section-title"><span class="section-number">01.</span> Habilidades Técnicas</h2>
+            
+            <div class="row g-4">
+                <!-- Data Science -->
+                <div class="col-lg-6">
+                    <div class="skill-card text-center text-lg-start">
+                        <h4 class="mb-5 fw-bold"><i class="devicon-python-plain colored me-2"></i> Data & Analytics</h4>
+                        <div class="row g-2 justify-content-center">
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-python-plain skill-icon"></i>
+                                <span class="skill-name">Python</span>
+                            </div>
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-mysql-plain skill-icon"></i>
+                                <span class="skill-name">SQL</span>
+                            </div>
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-pandas-plain skill-icon"></i>
+                                <span class="skill-name">Pandas</span>
+                            </div>
+                            <div class="col-4 col-sm-3 tech-box">
+                                <span class="skill-icon">📊</span>
+                                <span class="skill-name">Power BI</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Web Development -->
+                <div class="col-lg-6">
+                    <div class="skill-card text-center text-lg-start">
+                        <h4 class="mb-5 fw-bold"><i class="devicon-react-original colored me-2"></i> Web Stack</h4>
+                        <div class="row g-2 justify-content-center">
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-javascript-plain skill-icon"></i>
+                                <span class="skill-name">JS</span>
+                            </div>
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-react-original skill-icon"></i>
+                                <span class="skill-name">React</span>
+                            </div>
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-nodejs-plain skill-icon"></i>
+                                <span class="skill-name">Node.js</span>
+                            </div>
+                            <div class="col-4 col-sm-3 tech-box">
+                                <i class="devicon-html5-plain skill-icon"></i>
+                                <span class="skill-name">HTML/CSS</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Sección Interactiva: Proyectos -->
+    <!-- Sección Proyectos / Gráficos -->
     <section id="proyectos" class="py-5">
         <div class="container">
-            <h2 class="text-center mb-5 fw-bold text-white">Proyectos & Análisis</h2>
+            <h2 class="section-title"><span class="section-number">02.</span> Visualizaciones Live</h2>
             <div class="row g-4">
-                
-                <!-- Proyecto Formula 1 con Gráfico Real -->
-                <div class="col-lg-6">
-                    <div class="project-card">
-                        <h4 class="text-white">Análisis de Telemetría F1</h4>
-                        <p>Visualización de velocidades máximas por circuito. Procesado con Python y visualizado aquí con Chart.js.</p>
-                        <div class="chart-box">
-                            <canvas id="f1Chart"></canvas>
-                        </div>
+                <div class="col-12">
+                    <div class="chart-wrapper">
+                        <h5 class="mb-4 text-info fw-bold">Rendimiento Predictivo (F1 Insight)</h5>
+                        <canvas id="f1Chart" style="max-height: 300px;"></canvas>
                     </div>
                 </div>
-
-                <!-- Proyecto E-commerce -->
-                <div class="col-lg-6">
-                    <div class="project-card">
-                        <h4 class="text-white">E-commerce Data Insights</h4>
-                        <p>Dashboard de conversión para Tienda Nube. Análisis de comportamiento de usuarios y optimización de ventas.</p>
-                        <div class="chart-box">
-                            <canvas id="salesChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
 
-    <footer class="text-center py-4 border-top border-secondary mt-5 opacity-50">
+    <footer class="text-center py-5 mt-5 border-top border-secondary opacity-50">
         <p>Gualeguaychú, Argentina | 2026</p>
     </footer>
 
-    <!-- Lógica de los Gráficos Interactivos -->
+    <!-- Lógica de Gráficos -->
     <script>
-        // Gráfico de F1
-        const ctxF1 = document.getElementById('f1Chart').getContext('2d');
-        new Chart(ctxF1, {
-            type: 'bar',
-            data: {
-                labels: ['Monza', 'Spa', 'Silverstone', 'Mónaco'],
-                datasets: [{
-                    label: 'Velocidad Punta (km/h)',
-                    data: [355, 340, 330, 290],
-                    backgroundColor: '#58a6ff'
-                }]
-            },
-            options: { responsive: true, plugins: { legend: { display: false } } }
-        });
-
-        // Gráfico de Ventas
-        const ctxSales = document.getElementById('salesChart').getContext('2d');
-        new Chart(ctxSales, {
+        const ctx = document.getElementById('f1Chart').getContext('2d');
+        new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Ene', 'Feb', 'Mar', 'Abr'],
+                labels: ['Q1', 'Q2', 'Q3', 'Race Start', 'Pit Stop', 'Finish'],
                 datasets: [{
-                    label: 'Conversión %',
-                    data: [2.5, 3.8, 3.2, 4.5],
-                    borderColor: '#238636',
-                    tension: 0.3
+                    label: 'Eficiencia de Neumáticos (%)',
+                    data: [100, 92, 85, 80, 40, 75],
+                    borderColor: '#38bdf8',
+                    backgroundColor: 'rgba(56, 189, 248, 0.1)',
+                    fill: true,
+                    tension: 0.4,
+                    borderWidth: 3,
+                    pointBackgroundColor: '#2dd4bf'
                 }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { labels: { color: '#94a3b8', font: { weight: 'bold' } } } },
+                scales: {
+                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8' } },
+                    x: { grid: { display: false }, ticks: { color: '#94a3b8' } }
+                }
             }
         });
     </script>
