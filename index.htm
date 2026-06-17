@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tomas Turri Di Mario | Data Portfolio</title>
    
-<!-- Favicon personalizado de Data Science -->
-<link rel="icon" href="https://cdn-icons-png.flaticon.com/512/10150/10150789.png" type="image/png">
+    <!-- Favicon personalizado de Data Science -->
+    <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/10150/10150789.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
@@ -112,7 +112,7 @@
             transform: scale(1.2);
         }
 
-        .tech-icon { font-size: 2.8rem; margin-bottom: 0.8rem; }
+        .tech-icon, .skill-icon { font-size: 2.8rem; margin-bottom: 0.8rem; display: block; }
         .section-padding { padding: 120px 0; }
 
         .btn-main {
@@ -132,9 +132,68 @@
             box-shadow: 0 10px 25px rgba(56, 189, 248, 0.4);
             color: white;
         }
+
+        /* Ajuste para badges del proyecto */
+        .badge {
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.8rem;
+        }
+
+        /* --- Estilos para el puntero personalizado y la estela --- */
+        @media (pointer: fine) {
+            body {
+                cursor: none; /* Oculta el cursor por defecto del sistema */
+            }
+            
+            /* El puntito del centro */
+            .custom-cursor-dot {
+                width: 6px;
+                height: 6px;
+                background-color: var(--accent-blue);
+                position: fixed;
+                border-radius: 50%;
+                z-index: 9999;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                transition: width 0.2s, height 0.2s;
+            }
+
+            /* La estela/círculo exterior suave */
+            .custom-cursor {
+                width: 34px;
+                height: 34px;
+                border: 2px solid rgba(56, 189, 248, 0.4);
+                position: fixed;
+                border-radius: 50%;
+                z-index: 9998;
+                pointer-events: none;
+                transform: translate(-50%, -50%);
+                /* Esta transición genera el efecto "elástico" o estela al mover el mouse */
+                transition: transform 0.08s cubic-bezier(0.25, 1, 0.5, 1), width 0.3s, height 0.3s, background-color 0.3s;
+            }
+
+            /* Efecto cuando pasas el mouse por encima de un botón o elemento interactivo */
+            .cursor-hover-dot {
+                width: 0px;
+                height: 0px;
+            }
+
+            .cursor-hover-circle {
+                width: 45px;
+                height: 45px;
+                background-color: rgba(56, 189, 248, 0.1);
+                border-color: var(--accent-blue);
+            }
+        }
     </style>
 </head>
 <body>
+
+    <!-- Elementos del cursor personalizado -->
+    <div class="custom-cursor"></div>
+    <div class="custom-cursor-dot"></div>
 
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container">
@@ -169,7 +228,7 @@
         </div>
     </section>
 
-  <section id="sobre-mi" class="section-padding" style="background: rgba(255,255,255,0.02)">
+    <section id="sobre-mi" class="section-padding" style="background: rgba(255,255,255,0.02)">
         <div class="container">
             <div class="row align-items-center">
                 <div class="col-lg-7">
@@ -272,6 +331,48 @@
         </div>
     </section>
 
+    <!-- Sección de Proyectos -->
+    <section id="proyectos" class="section-padding" style="background: rgba(255,255,255,0.02)">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold">Proyectos Destacados</h2>
+                <p class="text-secondary">Soluciones de análisis de datos aplicadas a escenarios reales.</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- Tarjeta de Proyecto: Scouting Liga Argentina -->
+                <div class="col-lg-10">
+                    <div class="skill-card" style="border-left: 5px solid #dc3545;">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <span class="badge" style="background-color: #f57c00; color: white;">Power BI</span>
+                                <span class="badge bg-danger">● EN VIVO (PLAYOFFS)</span>
+                                <span class="badge bg-dark">Sports Analytics</span>
+                            </div>
+                            <div class="spinner-grow text-danger spinner-grow-sm" role="status"></div>
+                        </div>
+                        
+                        <h3 class="fw-bold text-white mb-3">Varianza de Rendimiento: Postemporada Liga Argentina de Básquet</h3>
+                        <p class="text-secondary fs-5">
+                            Ecosistema de datos que analiza y compara el rendimiento de equipos y jugadores en Playoffs respecto a la Fase Regular. El enfoque está en detectar los deltas de eficiencia (quiénes mejoraron bajo presión y quiénes redujeron sus métricas).
+                        </p>
+
+                        <div class="row mt-4 pt-2 border-top border-secondary border-opacity-10">
+                            <div class="col-md-7">
+                                <p class="text-info mb-1 small fw-bold">ABORDAJE TÉCNICO:</p>
+                                <p class="text-secondary small">Normalización de estadísticas mediante promedios por partido (para mitigar la distorsión de los 32 encuentros fijos de la fase regular) y cálculo de deltas ponderados mediante DAX.</p>
+                            </div>
+                            <div class="col-md-5 d-flex align-items-center justify-content-md-end mt-3 mt-md-0">
+                                <a href="https://www.laliganacional.com.ar/laligaargentina/estadisticas/" target="_blank" class="btn btn-outline-info btn-sm me-2">Fuente Oficial</a>
+                                <a href="#" class="btn btn-main btn-sm py-2 px-3">En desarrollo...</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="contacto" class="section-padding">
         <div class="container">
             <div class="skill-card text-center py-5">
@@ -286,5 +387,41 @@
         <p>Tomas Turri Di Mario | 2026</p>
     </footer>
 
+    <!-- Script interactivo del movimiento de la estela y el cursor -->
+    <script>
+        const cursor = document.querySelector('.custom-cursor');
+        const cursorDot = document.querySelector('.custom-cursor-dot');
+        const interactiveElements = document.querySelectorAll('a, button, .tech-box, .skill-card');
+
+        // Escucha el movimiento del mouse
+        window.addEventListener('mousemove', (e) => {
+            const posX = e.clientX;
+            const posY = e.clientY;
+
+            // Mueve el puntito central al instante
+            if(cursorDot) {
+                cursorDot.style.left = `${posX}px`;
+                cursorDot.style.top = `${posY}px`;
+            }
+
+            // Mueve el círculo exterior (la transición CSS genera el efecto elástico de estela)
+            if(cursor) {
+                cursor.style.left = `${posX}px`;
+                cursor.style.top = `${posY}px`;
+            }
+        });
+
+        // Eventos hover para agrandar/modificar la estela
+        interactiveElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                if(cursor) cursor.classList.add('cursor-hover-circle');
+                if(cursorDot) cursorDot.classList.add('cursor-hover-dot');
+            });
+            element.addEventListener('mouseleave', () => {
+                if(cursor) cursor.classList.remove('cursor-hover-circle');
+                if(cursorDot) cursorDot.classList.remove('cursor-hover-dot');
+            });
+        });
+    </script>
 </body>
 </html>
